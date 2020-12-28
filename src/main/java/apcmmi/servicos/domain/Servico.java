@@ -1,20 +1,14 @@
 package apcmmi.servicos.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Servico {
+    private Long id;
     private String name;
 
-    public Servico(String name) {
-        this.name = name;
-    }
-
-    public Servico() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
