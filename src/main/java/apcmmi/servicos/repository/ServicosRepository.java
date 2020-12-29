@@ -1,9 +1,8 @@
 package apcmmi.servicos.repository;
 
 import apcmmi.servicos.domain.Servico;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+public interface ServicosRepository extends JpaRepository<Servico, Long> {
 
-public interface ServicosRepository{
-    List<Servico> listAll();
 }

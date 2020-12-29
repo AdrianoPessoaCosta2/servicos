@@ -1,6 +1,9 @@
 package apcmmi.servicos.controller;
 
 import apcmmi.servicos.domain.Servico;
+import apcmmi.servicos.repository.ServicosRepository;
+import apcmmi.servicos.requests.ServicoPostRequestBody;
+import apcmmi.servicos.requests.ServicoPutRequestBody;
 import apcmmi.servicos.service.ServicosService;
 import apcmmi.servicos.util.DateUtil;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +34,7 @@ public class ServicoController {
         return ResponseEntity.ok(servicosService.findById(id));
     }
     @PostMapping
-    public ResponseEntity<Servico> save(@RequestBody Servico servico){
+    public ResponseEntity<Servico> save(@RequestBody ServicoPostRequestBody servico){
         return new ResponseEntity<>(servicosService.save(servico), HttpStatus.CREATED);
     }
     @DeleteMapping(path = "/{id}")
@@ -40,7 +43,7 @@ public class ServicoController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @PutMapping
-    public ResponseEntity<Void> replace(@RequestBody Servico servico){
+    public ResponseEntity<Void> replace(@RequestBody ServicoPutRequestBody servico){
         servicosService.replace(servico);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
