@@ -1,6 +1,7 @@
 package apcmmi.servicos.service;
 
 import apcmmi.servicos.domain.Servico;
+import apcmmi.servicos.mapper.ServicoMapper;
 import apcmmi.servicos.repository.ServicosRepository;
 import apcmmi.servicos.requests.ServicoPostRequestBody;
 import apcmmi.servicos.requests.ServicoPutRequestBody;
@@ -9,15 +10,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 @RequiredArgsConstructor
 public class ServicosService {
 
     private final ServicosRepository servicosRepository;
+
     public List<Servico> listAll() {
         return servicosRepository.findAll();
     }
@@ -28,7 +28,7 @@ public class ServicosService {
     }
 
     public Servico save(ServicoPostRequestBody servicoPostRequestBody) {
-        return servicosRepository.save(Servico.builder().name(servicoPostRequestBody.getName()).build());
+        return servicosRepository.save(ServicoMapper.INSTANCE.toServico(servicoPostRequestBody));
     }
 
     public void delete(long id) {
@@ -37,10 +37,8 @@ public class ServicosService {
 
     public void replace(ServicoPutRequestBody servicoPutRequestBody) {
         Servico savedServico = findByIdOrThrowBadRequestException(servicoPutRequestBody.getId());
-        Servico servico = Servico.builder()
-                .id(savedServico.getId())
-                .name(servicoPutRequestBody.getName())
-                .build();
+        Servico servico = ServicoMapper.INSTANCE.toServico(servicoPutRequestBody);
+        servico.setId(savedServico.getId());
         servicosRepository.save(servico);
     }
 
