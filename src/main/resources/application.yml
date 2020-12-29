@@ -1,3 +1,13 @@
 server:
   error:
     include-stacktrace: on_trace_param
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/servicos?createDatabaseIfNotExist=true
+    username: postgres
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: postgresql
